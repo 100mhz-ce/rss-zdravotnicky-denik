@@ -1,0 +1,33 @@
+name: RSS Zdravotnický deník
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # každou hodinu
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install feedparser
+
+      - name: Run RSS script
+        run: python rss_feedly_like.py
+
+      - name: Commit updated files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add archive.csv vypis_vcera.csv
+          git commit -m "Update RSS archive" || echo "No changes"
+          git push
