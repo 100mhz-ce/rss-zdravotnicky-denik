@@ -31,3 +31,10 @@ jobs:
           git add archive.csv vypis_vcera.csv
           git commit -m "Update RSS archive" || echo "No changes"
           git push
+      - name: Odeslat ranní svodku e-mailem
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        run: python send_email.py
