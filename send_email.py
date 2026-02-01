@@ -6,7 +6,7 @@ from datetime import date, timedelta
 
 # --- Nastavení ---
 CSV_FILE = "vypis_vcera.csv"
-TO_EMAIL = "ranni.svodky@centrum.cz"
+TO_EMAIL = "kazi.kovar@gmail.com"
 
 # --- SMTP ze Secrets ---
 SMTP_USER = os.environ["SMTP_USER"]
