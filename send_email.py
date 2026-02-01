@@ -37,6 +37,19 @@ with open(CSV_FILE, newline="", encoding="utf-8") as f:
             f"   {link}\n"
         )
 
+# --- Tělo e-mailu (VŽDY definované) ---
+if not lines:
+    body = (
+        f"Zdravotnický deník – články za {date_str}\n\n"
+        "Včera nebyly nalezeny žádné články."
+    )
+else:
+    body = (
+        f"Zdravotnický deník – články za {date_str}\n\n"
+        f"Celkem článků: {len(lines)}\n\n"
+        + "\n".join(lines)
+    )
+
 
 # --- Email ---
 msg = EmailMessage()
