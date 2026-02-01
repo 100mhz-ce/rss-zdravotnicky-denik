@@ -1,1 +1,1 @@
-# rss-zdravotnicky-denik
+👉 **[📄 OTEVŘÍT VČEREJŠÍ ČLÁNKY (CSV)](./vypis_vcera.csv)**
