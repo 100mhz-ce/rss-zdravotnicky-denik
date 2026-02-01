@@ -22,21 +22,21 @@ date_str = yesterday.strftime("%d.%m.%Y")
 lines = []
 with open(CSV_FILE, newline="", encoding="utf-8") as f:
     reader = csv.DictReader(f)
+
     for i, row in enumerate(reader, start=1):
+        title = row.get("title") or row.get("Title") or row.get("nazev") or ""
+        summary = row.get("summary") or row.get("Summary") or row.get("description") or ""
+        link = row.get("link") or row.get("Link") or row.get("odkaz") or ""
+
+        if not title and not link:
+            continue
+
         lines.append(
-            f"{i}) {row['title']}\n"
-            f"   {row.get('summary', '').strip()}\n"
-            f"   {row['link']}\n"
+            f"{i}) {title}\n"
+            f"   {summary.strip()}\n"
+            f"   {link}\n"
         )
 
-if not lines:
-    body = "Včera nebyly nalezeny žádné články."
-else:
-    body = (
-        f"Zdravotnický deník – články za {date_str}\n\n"
-        f"Celkem článků: {len(lines)}\n\n"
-        + "\n".join(lines)
-    )
 
 # --- Email ---
 msg = EmailMessage()
