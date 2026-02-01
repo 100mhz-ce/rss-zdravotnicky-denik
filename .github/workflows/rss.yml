@@ -2,7 +2,7 @@ name: RSS Zdravotnický deník
 
 on:
   schedule:
-    - cron: "0 * * * *"   # každou hodinu
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
