@@ -24,18 +24,28 @@ with open(CSV_FILE, newline="", encoding="utf-8") as f:
     reader = csv.DictReader(f)
 
     for i, row in enumerate(reader, start=1):
-        title = row.get("title") or row.get("Title") or row.get("nazev") or ""
-        summary = row.get("summary") or row.get("Summary") or row.get("description") or ""
-        link = row.get("link") or row.get("Link") or row.get("odkaz") or ""
-
-        if not title and not link:
-            continue
+        title = row["Titulek"].strip()
+        summary = row["Popis"].strip()
+        link = row["Odkaz"].strip()
 
         lines.append(
             f"{i}) {title}\n"
-            f"   {summary.strip()}\n"
+            f"   {summary}\n"
             f"   {link}\n"
         )
+
+# --- Tělo e-mailu ---
+if not lines:
+    body = (
+        f"Zdravotnický deník – články za {date_str}\n\n"
+        "Včera nebyly nalezeny žádné články."
+    )
+else:
+    body = (
+        f"Zdravotnický deník – články za {date_str}\n\n"
+        f"Celkem článků: {len(lines)}\n\n"
+        + "\n".join(lines)
+    )
 
 # --- Tělo e-mailu (VŽDY definované) ---
 if not lines:
